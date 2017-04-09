@@ -117,6 +117,13 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     {
       ekf_.x_  = VectorXd(4);
       ekf_.x_ << init_x, init_y, 0 ,0;
+
+
+      double dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0; //dt - expressed in seconds
+      previous_timestamp_ = measurement_pack.timestamp_;
+        
+      ekf_.F_(0,2) = dt; 
+      ekf_.F_(1,3) = dt; 
       // done initializing, no need to predict or update
       is_initialized_ = true;      
     }
