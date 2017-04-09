@@ -28,10 +28,10 @@ public:
   /**
   * A helper method to convert RADAR polar coordinates to cartesian.
   */
-  Eigen::VectorXd Tools::ConvCartesianToPolar(const Eigen::VectorXd& x);
+  Eigen::VectorXd ConvCartesianToPolar(const Eigen::VectorXd& x);
 
 
-  double Tools::ClampAngleFromNegPiToPi(const double x);
+  double ClampAngleFromNegPiToPi(const double x);
 
 };
 
