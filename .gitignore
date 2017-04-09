@@ -30,3 +30,7 @@ ExtendedKF.exe
 output.txt
 src/CMakeCache.txt
 src/CMakeFiles/
+
+
+output.txt
+output*.txt

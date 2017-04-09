@@ -24,9 +24,9 @@ void check_arguments(int argc, char* argv[]) {
   if (argc == 1) {
     std::cerr << usage_instructions << endl;
 
-	argv[1] = "d:\\sample-laser-radar-measurement-data-1.txt";
-	argv[2] = "d:\\output1.txt";
-	has_valid_args = true;
+	// argv[1] = "d:\\sample-laser-radar-measurement-data-1.txt";
+	// argv[2] = "d:\\output1.txt";
+    has_valid_args = false;
 
   } else if (argc == 2) {
     std::cerr << "Please include an output file.\n" << usage_instructions << endl;
