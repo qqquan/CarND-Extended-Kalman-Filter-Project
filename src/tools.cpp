@@ -90,7 +90,7 @@ Eigen::VectorXd Tools::ConvCartesianToPolar(const Eigen::VectorXd& x)
 
   double distance = px*px + py*py;
   VectorXd ret_val(3);
-  if( (0 != px) && (0 != distance))
+  if(0 != distance)
   {
     double ro = std::sqrt(distance);
     double phi = std::atan2(py,px);
@@ -98,8 +98,22 @@ Eigen::VectorXd Tools::ConvCartesianToPolar(const Eigen::VectorXd& x)
     ret_val << ro, phi, ro_dot;
   }
   else
-  {
-      std::cerr << "ConvPolarToCartesian() - Error - Division by Zero" << std::endl;
+  { 
+    double ro_dot = 0.0;
+    double phi = std::atan2(py,px);
+
+    //if the speed is along x-axis or y-axis
+    if(0==px)
+    {
+      ro_dot = vy;
+    }
+    else if (0 == py)
+    {
+      ro_dot = vx;
+    }
+
+    ret_val << 0, phi, ro_dot;
+    // std::cerr << "ConvPolarToCartesian() - Error - Division by Zero" << std::endl;
   }
 
   return ret_val;
