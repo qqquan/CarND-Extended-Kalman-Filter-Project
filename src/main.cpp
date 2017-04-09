@@ -22,29 +22,41 @@ void check_arguments(int argc, char* argv[]) {
 
   // make sure the user has provided input and output files
   if (argc == 1) {
-    cerr << usage_instructions << endl;
+    std::cerr << usage_instructions << endl;
+
+	argv[1] = "d:\\sample-laser-radar-measurement-data-1.txt";
+	argv[2] = "d:\\output.txt";
+	has_valid_args = true;
+
   } else if (argc == 2) {
-    cerr << "Please include an output file.\n" << usage_instructions << endl;
+    std::cerr << "Please include an output file.\n" << usage_instructions << endl;
   } else if (argc == 3) {
     has_valid_args = true;
   } else if (argc > 3) {
-    cerr << "Too many arguments.\n" << usage_instructions << endl;
+    std::cerr << "Too many arguments.\n" << usage_instructions << endl;
   }
 
   if (!has_valid_args) {
+
+    std::cin.get();
     exit(EXIT_FAILURE);
   }
+
 }
 
 void check_files(ifstream& in_file, string& in_name,
                  ofstream& out_file, string& out_name) {
   if (!in_file.is_open()) {
-    cerr << "Cannot open input file: " << in_name << endl;
+    std::cerr << "Cannot open input file: " << in_name << endl;
+
+    std::cin.get();
     exit(EXIT_FAILURE);
   }
 
   if (!out_file.is_open()) {
-    cerr << "Cannot open output file: " << out_name << endl;
+    std::cerr << "Cannot open output file: " << out_name << endl;
+
+    std::cin.get();
     exit(EXIT_FAILURE);
   }
 }
@@ -151,8 +163,8 @@ int main(int argc, char* argv[]) {
       out_file_ << measurement_pack_list[k].raw_measurements_(1) << "\t";
     } else if (measurement_pack_list[k].sensor_type_ == MeasurementPackage::RADAR) {
       // output the estimation in the cartesian coordinates
-      float ro = measurement_pack_list[k].raw_measurements_(0);
-      float phi = measurement_pack_list[k].raw_measurements_(1);
+      double ro = measurement_pack_list[k].raw_measurements_(0);
+      double phi = measurement_pack_list[k].raw_measurements_(1);
       out_file_ << ro * cos(phi) << "\t"; // p1_meas
       out_file_ << ro * sin(phi) << "\t"; // ps_meas
     }
@@ -180,5 +192,7 @@ int main(int argc, char* argv[]) {
     in_file_.close();
   }
 
+  std::cin.get();
+  
   return 0;
 }

@@ -22,3 +22,11 @@ xcuserdata/
 *.xcscmblueprint
 ide_profiles/xcode/Debug/
 ide_profiles/xcode/ExtendedKF.build/
+
+
+.vs/
+CMakeSettings.json
+ExtendedKF.exe
+output.txt
+src/CMakeCache.txt
+src/CMakeFiles/
