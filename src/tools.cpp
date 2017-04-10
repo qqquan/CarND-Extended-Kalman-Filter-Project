@@ -63,15 +63,24 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   //check division by zero
   if(0 != range_squar)
   {
-      //TODO: px*px + py*py might be close to zero. What should be done in those cases?
-      Hj << px/std::sqrt(range_squar),                    py/std::sqrt(range_squar),                      0,                            0,
-            -py/range_squar,                              px/range_squar,                                 0,                            0,
-            py*(vx*py-vy*px)/std::pow(range_squar, 1.5),  px*(vy*px-vx*py)/std::pow(range_squar, 1.5),    px/std::sqrt(range_squar),    py/std::sqrt(range_squar);     
-              
+    //TODO: px*px + py*py might be close to zero. What should be done in those cases?
+    Hj << px/std::sqrt(range_squar),                    py/std::sqrt(range_squar),                      0,                            0,
+          -py/range_squar,                              px/range_squar,                                 0,                            0,
+          py*(vx*py-vy*px)/std::pow(range_squar, 1.5),  px*(vy*px-vx*py)/std::pow(range_squar, 1.5),    px/std::sqrt(range_squar),    py/std::sqrt(range_squar);     
+            
   }
   else
   {
-      std::cerr << "CalculateJacobian() - Error - Division by Zero" << std::endl;
+	  //TODO: px*px + py*py is  zero. What should be done in those cases? Substitute a small values or try to make K zero to ?
+    px = 0.001;
+    py = 0.001;
+    range_squar = (px*px + py*py);
+
+	  Hj << px / std::sqrt(range_squar),                      py / std::sqrt(range_squar),                      0, 0,
+          -py / range_squar,                                px / range_squar,                                 0, 0,
+          py*(vx*py - vy*px) / std::pow(range_squar, 1.5),  px*(vy*px - vx*py) / std::pow(range_squar, 1.5),  px / std::sqrt(range_squar), py / std::sqrt(range_squar);
+
+    std::cerr << "CalculateJacobian() - Error - Division by Zero" << std::endl;
   }
   
   
